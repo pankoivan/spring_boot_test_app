@@ -2,6 +2,8 @@ package org.example.spring_boot_test_app.main.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.example.spring_boot_test_app.main.entities.AppUser;
+import org.example.spring_boot_test_app.main.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,7 +29,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        AppUser appUser = repository.findByEmail(name).orElseThrow(() -> new UsernameNotFoundException("Неверный логин"));
+        AppUser appUser = repository.findByUsername(name).orElseThrow(() -> new UsernameNotFoundException("Неверный логин"));
 
         if (passwordEncoder.matches(password, appUser.getPassword())) {
             return new UsernamePasswordAuthenticationToken(appUser, password, appUser.getAuthorities());
