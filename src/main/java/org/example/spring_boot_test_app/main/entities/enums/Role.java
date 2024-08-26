@@ -9,9 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 @Getter
 public enum Role implements GrantedAuthority {
 
-    USER,
+    USER("Пользователь"),
 
-    ADMIN;
+    ADMIN("Администратор");
+
+    private final String alias;
 
     @Override
     public String getAuthority() {
