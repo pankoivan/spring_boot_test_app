@@ -12,7 +12,7 @@ public class ProductOutDtoMapper implements BaseListMapper<Product, ProductOutDt
     public ProductOutDto map(Product product) {
         return product == null ? null : ProductOutDto
                 .builder()
-                .authorUsername(comment.getAuthor().getUsername())
+                .authorUsername(product.getAuthor().getUsername())
                 .name(product.getName())
                 .description(product.getDescription())
                 .build();
