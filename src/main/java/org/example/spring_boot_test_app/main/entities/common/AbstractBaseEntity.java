@@ -21,7 +21,7 @@ public class AbstractBaseEntity {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
     @Column(name = "editing_date")
