@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString(
-        exclude = {"createdProducts", "createdTags", "createdComments"},
+        exclude = {"createdComments", "createdProducts", "createdTags"},
         callSuper = true
 )
 @SuperBuilder
