@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "app_user")
@@ -17,7 +19,7 @@ import java.util.Collections;
 @Getter
 @Setter
 @ToString(
-        exclude = {},
+        exclude = {"createdProducts", "createdTags", "createdComments"},
         callSuper = true
 )
 @SuperBuilder
@@ -32,6 +34,18 @@ public class AppUser implements UserDetails {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "author")
+    @Builder.Default
+    private Set<Comment> createdComments = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "author")
+    @Builder.Default
+    private Set<Product> createdProducts = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "author")
+    @Builder.Default
+    private Set<Tag> createdTags = new LinkedHashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

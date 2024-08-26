@@ -1,8 +1,6 @@
 package org.example.spring_boot_test_app.main.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -13,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString(
-        exclude = {},
+        exclude = {"product", "author"},
         callSuper = true
 )
 @SuperBuilder
@@ -21,5 +19,13 @@ public class Comment {
 
     @Column(name = "text", unique = true, nullable = false, columnDefinition = "TEXT")
     private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private AppUser author;
 
 }
