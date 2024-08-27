@@ -11,9 +11,11 @@ import org.example.spring_boot_test_app.main.services.access.implementations.App
 import org.example.spring_boot_test_app.main.services.base.interfaces.common.BaseService;
 import org.example.spring_boot_test_app.main.services.validation.implementations.AppUserValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -22,6 +24,8 @@ import java.util.Set;
 public class AppUserService implements BaseService<AppUser, AppUserAddingDto, AppUserEditingDto> {
 
     private final AppUserRepository repository;
+
+    private final PasswordEncoder passwordEncoder;
 
     private AppUserAccessService accessService;
 
@@ -41,17 +45,36 @@ public class AppUserService implements BaseService<AppUser, AppUserAddingDto, Ap
 
     @Override
     public AppUser add(AppUserAddingDto addingDto, BindingResult bindingResult) {
-        return null;
+        validationService.addingValidation(addingDto, bindingResult);
+        accessService.shouldCreate();
+        return repository.save(
+                AppUser
+                        .builder()
+                        .username(addingDto.getUsername())
+                        .password(passwordEncoder.encode(addingDto.getPassword()))
+                        .role(addingDto.getRole())
+                        .creationDate(LocalDateTime.now())
+                        .build()
+        );
     }
 
     @Override
     public AppUser edit(AppUserEditingDto editingDto, BindingResult bindingResult) {
-        return null;
+        AppUser appUser = validationService.editingValidation(editingDto, bindingResult);
+        accessService.shouldEdit(appUser);
+        appUser.setUsername(editingDto.getUsername());
+        appUser.setPassword(passwordEncoder.encode(editingDto.getPassword()));
+        appUser.setRole(editingDto.getRole());
+        appUser.setEditingDate(LocalDateTime.now());
+        return repository.save(appUser);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        AppUser appUser = findById(id);
+        validationService.deletionValidation(appUser);
+        accessService.shouldDelete(appUser);
+        repository.deleteById(id);
     }
 
 }
