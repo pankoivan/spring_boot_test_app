@@ -3,6 +3,7 @@ package org.example.spring_boot_test_app.main.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.example.spring_boot_test_app.main.entities.common.AbstractBaseEntity;
 import org.example.spring_boot_test_app.main.entities.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ import java.util.Set;
         callSuper = true
 )
 @SuperBuilder
-public class AppUser implements UserDetails {
+public class AppUser extends AbstractBaseEntity implements UserDetails {
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;

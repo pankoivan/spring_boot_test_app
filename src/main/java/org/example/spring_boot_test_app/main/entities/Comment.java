@@ -3,6 +3,7 @@ package org.example.spring_boot_test_app.main.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.example.spring_boot_test_app.main.entities.common.AbstractBaseEntity;
 
 @Entity
 @Table(name = "comment")
@@ -15,7 +16,7 @@ import lombok.experimental.SuperBuilder;
         callSuper = true
 )
 @SuperBuilder
-public class Comment {
+public class Comment extends AbstractBaseEntity {
 
     @Column(name = "text", unique = true, nullable = false, columnDefinition = "TEXT")
     private String text;

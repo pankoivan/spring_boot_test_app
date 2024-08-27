@@ -3,6 +3,7 @@ package org.example.spring_boot_test_app.main.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.example.spring_boot_test_app.main.entities.common.AbstractBaseEntity;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import java.util.Set;
         callSuper = true
 )
 @SuperBuilder
-public class Tag {
+public class Tag extends AbstractBaseEntity {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
