@@ -41,6 +41,13 @@ public class RestExceptionInterceptor {
         return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(HttpClientErrorException.Unauthorized.class)
+    public ResponseEntity<NoFieldsValidationExceptionResponseEntity> unauthorized(HttpClientErrorException.Unauthorized e) {
+        NoFieldsValidationExceptionResponseEntity json = new NoFieldsValidationExceptionResponseEntity(e.getMessage());
+        return new ResponseEntity<>(json, HttpStatus.UNAUTHORIZED);
+    }
+
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler({
             AccessRightsException.class,
