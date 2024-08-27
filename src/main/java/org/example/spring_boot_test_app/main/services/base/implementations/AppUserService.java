@@ -1,13 +1,20 @@
 package org.example.spring_boot_test_app.main.services.base.implementations;
 
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.example.spring_boot_test_app.main.dto.in.app_user.AppUserAddingDto;
 import org.example.spring_boot_test_app.main.dto.in.app_user.AppUserEditingDto;
 import org.example.spring_boot_test_app.main.entities.AppUser;
 import org.example.spring_boot_test_app.main.services.base.interfaces.common.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.Set;
 
+@Service
+@RequiredArgsConstructor
+@Setter(onMethod_ = @Autowired)
 public class AppUserService implements BaseService<AppUser, AppUserAddingDto, AppUserEditingDto> {
 
     @Override
