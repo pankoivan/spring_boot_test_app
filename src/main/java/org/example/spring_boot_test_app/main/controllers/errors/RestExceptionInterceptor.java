@@ -1,7 +1,7 @@
 package org.example.spring_boot_test_app.main.controllers.errors;
 
-import org.example.spring_boot_test_app.main.controllers.entities.FieldsValidationExceptionResponseEntity;
-import org.example.spring_boot_test_app.main.controllers.entities.NoFieldsValidationExceptionResponseEntity;
+import org.example.spring_boot_test_app.main.controllers.errors.entities.FieldsValidationExceptionResponseEntity;
+import org.example.spring_boot_test_app.main.controllers.errors.entities.NoFieldsValidationExceptionResponseEntity;
 import org.example.spring_boot_test_app.main.exceptions.FieldsValidationException;
 import org.example.spring_boot_test_app.main.exceptions.InputValidationException;
 import org.springframework.http.HttpStatus;

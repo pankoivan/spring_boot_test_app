@@ -1,4 +1,4 @@
-package org.example.spring_boot_test_app.main.controllers.entities;
+package org.example.spring_boot_test_app.main.controllers.errors.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
