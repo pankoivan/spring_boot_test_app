@@ -14,7 +14,7 @@ public class ProductEditingDto extends ProductSavingDto {
     private Integer id;
 
     @NotNull(message = "Обязательное поле")
-    private ProductEditingMode tagsEditing;
+    private ProductEditingMode productEditingMode;
 
     public enum ProductEditingMode {
 
