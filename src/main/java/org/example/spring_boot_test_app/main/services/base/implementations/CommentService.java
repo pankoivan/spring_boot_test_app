@@ -8,12 +8,14 @@ import org.example.spring_boot_test_app.main.entities.Comment;
 import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
 import org.example.spring_boot_test_app.main.repository.CommentRepository;
 import org.example.spring_boot_test_app.main.services.access.implementations.CommentAccessService;
+import org.example.spring_boot_test_app.main.services.auxiliary.interfaces.CurrentUserService;
 import org.example.spring_boot_test_app.main.services.base.interfaces.common.BaseService;
 import org.example.spring_boot_test_app.main.services.validation.implementations.CommentValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -26,6 +28,10 @@ public class CommentService implements BaseService<Comment, CommentAddingDto, Co
     private CommentAccessService accessService;
 
     private CommentValidationService validationService;
+
+    private ProductService productService;
+
+    private CurrentUserService currentUserService;
 
     @Override
     public Comment findById(Integer id) {
@@ -41,17 +47,34 @@ public class CommentService implements BaseService<Comment, CommentAddingDto, Co
 
     @Override
     public Comment add(CommentAddingDto addingDto, BindingResult bindingResult) {
-        return null;
+        validationService.addingValidation(addingDto, bindingResult);
+        accessService.shouldCreate();
+        return repository.save(
+                Comment
+                        .builder()
+                        .text(addingDto.getText())
+                        .product(productService.findById(addingDto.getProductId()))
+                        .author(currentUserService.appUser())
+                        .creationDate(LocalDateTime.now())
+                        .build()
+        );
     }
 
     @Override
     public Comment edit(CommentEditingDto editingDto, BindingResult bindingResult) {
-        return null;
+        Comment comment = validationService.editingValidation(editingDto, bindingResult);
+        accessService.shouldEdit(comment);
+        comment.setText(editingDto.getText());
+        comment.setEditingDate(LocalDateTime.now());
+        return repository.save(comment);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        Comment comment = findById(id);
+        validationService.deletionValidation(comment);
+        accessService.shouldDelete(comment);
+        repository.deleteById(id);
     }
 
 }
