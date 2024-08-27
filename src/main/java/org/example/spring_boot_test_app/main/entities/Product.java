@@ -21,14 +21,14 @@ import java.util.Set;
 @SuperBuilder
 public class Product extends AbstractBaseEntity {
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "description", unique = true, nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "author_id")
     private AppUser author;
 
     @OneToMany(mappedBy = "product")
@@ -38,8 +38,8 @@ public class Product extends AbstractBaseEntity {
     @ManyToMany
     @JoinTable(
             name = "product_tag",
-            joinColumns = @JoinColumn(name = "product_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "tag_id", nullable = false)
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     @Builder.Default
     private Set<Tag> tags = new LinkedHashSet<>();

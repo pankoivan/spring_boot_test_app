@@ -18,15 +18,15 @@ import org.example.spring_boot_test_app.main.entities.common.AbstractBaseEntity;
 @SuperBuilder
 public class Comment extends AbstractBaseEntity {
 
-    @Column(name = "text", unique = true, nullable = false, columnDefinition = "TEXT")
+    @Column(name = "text")
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "author_id")
     private AppUser author;
 
 }

@@ -18,10 +18,10 @@ public class AbstractBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
     @Column(name = "editing_date")

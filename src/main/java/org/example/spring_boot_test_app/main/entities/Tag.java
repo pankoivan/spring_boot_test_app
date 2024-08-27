@@ -21,11 +21,11 @@ import java.util.Set;
 @SuperBuilder
 public class Tag extends AbstractBaseEntity {
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "author_id")
     private AppUser author;
 
     @ManyToMany(mappedBy = "tags")
