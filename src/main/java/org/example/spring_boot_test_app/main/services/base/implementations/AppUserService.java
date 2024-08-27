@@ -36,7 +36,7 @@ public class AppUserService implements BaseService<AppUser, AppUserAddingDto, Ap
 
     @Override
     public Set<AppUser> findAll() {
-        return Set.of();
+        return accessService.availableOnly(repository.findAllByOrderByCreationDateDesc());
     }
 
     @Override

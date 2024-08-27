@@ -36,7 +36,7 @@ public class TagService implements BaseService<Tag, TagAddingDto, TagEditingDto>
 
     @Override
     public Set<Tag> findAll() {
-        return Set.of();
+        return accessService.availableOnly(repository.findAllByOrderByCreationDateDesc());
     }
 
     @Override

@@ -36,7 +36,7 @@ public class ProductService implements BaseService<Product, ProductAddingDto, Pr
 
     @Override
     public Set<Product> findAll() {
-        return Set.of();
+        return accessService.availableOnly(repository.findAllByOrderByCreationDateDesc());
     }
 
     @Override

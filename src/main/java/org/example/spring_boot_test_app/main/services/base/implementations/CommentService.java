@@ -36,7 +36,7 @@ public class CommentService implements BaseService<Comment, CommentAddingDto, Co
 
     @Override
     public Set<Comment> findAll() {
-        return Set.of();
+        return accessService.availableOnly(repository.findAllByOrderByCreationDateDesc());
     }
 
     @Override
