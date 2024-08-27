@@ -14,6 +14,16 @@ public class ProductEditingDto extends ProductSavingDto {
     private Integer id;
 
     @NotNull(message = "Обязательное поле")
-    private Boolean tagsEditing;
+    private ProductEditingMode tagsEditing;
+
+    public enum ProductEditingMode {
+
+        NO_EDIT_TAGS,
+
+        ADD_TAGS,
+
+        REMOVE_TAGS
+
+    }
 
 }
