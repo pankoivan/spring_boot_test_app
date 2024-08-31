@@ -15,7 +15,7 @@ class SearchUtilsTest {
 
     // contains providers
 
-    public static Stream<Arguments> testContainsTrueCaseProvider() {
+    static Stream<Arguments> testContainsTrueCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "Byb"),
                 Arguments.of("|Byb|", ""),
@@ -23,7 +23,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testContainsFalseCaseProvider() {
+    static Stream<Arguments> testContainsFalseCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "pop"),
                 Arguments.of("|Byb|", "byb"),
@@ -33,7 +33,7 @@ class SearchUtilsTest {
 
     // containsIgnoreCase providers
 
-    public static Stream<Arguments> testContainsIgnoreCaseTrueCaseProvider() {
+    static Stream<Arguments> testContainsIgnoreCaseTrueCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "Byb"),
                 Arguments.of("|Byb|", "byb"),
@@ -42,7 +42,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testContainsIgnoreCaseFalseCaseProvider() {
+    static Stream<Arguments> testContainsIgnoreCaseFalseCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "pop"),
                 Arguments.of("Byb", "|Byb|")
@@ -51,7 +51,7 @@ class SearchUtilsTest {
 
     // biDirectionalContains providers
 
-    public static Stream<Arguments> testBiDirectionalContainsTrueCaseProvider() {
+    static Stream<Arguments> testBiDirectionalContainsTrueCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "Byb"),
                 Arguments.of("Byb", "|Byb|"),
@@ -60,7 +60,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testBiDirectionalContainsFalseCaseProvider() {
+    static Stream<Arguments> testBiDirectionalContainsFalseCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "pop"),
                 Arguments.of("|Byb|", "byb")
@@ -69,7 +69,7 @@ class SearchUtilsTest {
 
     // biDirectionalContainsIgnoreCase providers
 
-    public static Stream<Arguments> testBiDirectionalContainsIgnoreCaseTrueCaseProvider() {
+    static Stream<Arguments> testBiDirectionalContainsIgnoreCaseTrueCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "Byb"),
                 Arguments.of("Byb", "|Byb|"),
@@ -80,7 +80,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testBiDirectionalContainsIgnoreCaseFalseCaseProvider() {
+    static Stream<Arguments> testBiDirectionalContainsIgnoreCaseFalseCaseProvider() {
         return Stream.of(
                 Arguments.of("|Byb|", "pop")
         );
@@ -88,7 +88,7 @@ class SearchUtilsTest {
 
     // listContains providers
 
-    public static Stream<Arguments> testListContainsTrueCaseProvider() {
+    static Stream<Arguments> testListContainsTrueCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), ""),
@@ -96,7 +96,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testListContainsFalseCaseProvider() {
+    static Stream<Arguments> testListContainsFalseCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop"),
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp"),
@@ -106,7 +106,7 @@ class SearchUtilsTest {
 
     // listContainsIgnoreCase providers
 
-    public static Stream<Arguments> testListContainsIgnoreCaseTrueCaseProvider() {
+    static Stream<Arguments> testListContainsIgnoreCaseTrueCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp"),
@@ -115,7 +115,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testListContainsIgnoreCaseFalseCaseProvider() {
+    static Stream<Arguments> testListContainsIgnoreCaseFalseCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop"),
                 Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")
@@ -124,7 +124,7 @@ class SearchUtilsTest {
 
     // listBiDirectionalContains providers
 
-    public static Stream<Arguments> testListBiDirectionalContainsTrueCaseProvider() {
+    static Stream<Arguments> testListBiDirectionalContainsTrueCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
                 Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|"),
@@ -133,7 +133,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testListBiDirectionalContainsFalseCaseProvider() {
+    static Stream<Arguments> testListBiDirectionalContainsFalseCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop"),
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp")
@@ -142,7 +142,7 @@ class SearchUtilsTest {
 
     // listBiDirectionalContainsIgnoreCase providers
 
-    public static Stream<Arguments> testListBiDirectionalContainsIgnoreCaseTrueCaseProvider() {
+    static Stream<Arguments> testListBiDirectionalContainsIgnoreCaseTrueCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
                 Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|"),
@@ -153,7 +153,7 @@ class SearchUtilsTest {
         );
     }
 
-    public static Stream<Arguments> testListBiDirectionalContainsIgnoreCaseFalseCaseProvider() {
+    static Stream<Arguments> testListBiDirectionalContainsIgnoreCaseFalseCaseProvider() {
         return Stream.of(
                 Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop")
         );
