@@ -1,33 +1,176 @@
 package org.example.spring_boot_test_app.auxiliary;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SearchUtilsTest {
 
-    // contains
+    // contains providers
 
-    @Test
-    void testContains_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.contains("|Byb|", "Byb")).isTrue(),
-                () -> assertThat(SearchUtils.contains("|Byb|", "")).isTrue(),
-                () -> assertThat(SearchUtils.contains("|Byb|", null)).isTrue()
+    public static Stream<Arguments> testContainsTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "Byb"),
+                Arguments.of("|Byb|", ""),
+                Arguments.of("|Byb|", null)
         );
     }
 
-    @Test
-    void testContains_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.contains("|Byb|", "pop")).isFalse(),
-                () -> assertThat(SearchUtils.contains("|Byb|", "byb")).isFalse(),
-                () -> assertThat(SearchUtils.contains("Byb", "|Byb|")).isFalse()
+    public static Stream<Arguments> testContainsFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "pop"),
+                Arguments.of("|Byb|", "byb"),
+                Arguments.of("Byb", "|Byb|")
         );
+    }
+
+    // containsIgnoreCase providers
+
+    public static Stream<Arguments> testContainsIgnoreCaseTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "Byb"),
+                Arguments.of("|Byb|", "byb"),
+                Arguments.of("Byb", ""),
+                Arguments.of("Byb", null)
+        );
+    }
+
+    public static Stream<Arguments> testContainsIgnoreCaseFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "pop"),
+                Arguments.of("Byb", "|Byb|")
+        );
+    }
+
+    // biDirectionalContains providers
+
+    public static Stream<Arguments> testBiDirectionalContainsTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "Byb"),
+                Arguments.of("Byb", "|Byb|"),
+                Arguments.of("Byb", ""),
+                Arguments.of("Byb", null)
+        );
+    }
+
+    public static Stream<Arguments> testBiDirectionalContainsFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "pop"),
+                Arguments.of("|Byb|", "byb")
+        );
+    }
+
+    // biDirectionalContainsIgnoreCase providers
+
+    public static Stream<Arguments> testBiDirectionalContainsIgnoreCaseTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "Byb"),
+                Arguments.of("Byb", "|Byb|"),
+                Arguments.of("|Byb|", "byb"),
+                Arguments.of("byb", "|Byb|"),
+                Arguments.of("Byb", ""),
+                Arguments.of("Byb", null)
+        );
+    }
+
+    public static Stream<Arguments> testBiDirectionalContainsIgnoreCaseFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of("|Byb|", "pop")
+        );
+    }
+
+    // listContains providers
+
+    public static Stream<Arguments> testListContainsTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), ""),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), null)
+        );
+    }
+
+    public static Stream<Arguments> testListContainsFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp"),
+                Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")
+        );
+    }
+
+    // listContainsIgnoreCase providers
+
+    public static Stream<Arguments> testListContainsIgnoreCaseTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), ""),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), null)
+        );
+    }
+
+    public static Stream<Arguments> testListContainsIgnoreCaseFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop"),
+                Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")
+        );
+    }
+
+    // listBiDirectionalContains providers
+
+    public static Stream<Arguments> testListBiDirectionalContainsTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
+                Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), ""),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), null)
+        );
+    }
+
+    public static Stream<Arguments> testListBiDirectionalContainsFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp")
+        );
+    }
+
+    // listBiDirectionalContainsIgnoreCase providers
+
+    public static Stream<Arguments> testListBiDirectionalContainsIgnoreCaseTrueCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp"),
+                Arguments.of(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp"),
+                Arguments.of(List.of("|Byb|", "pyp", "|Bob|"), "|Pyp|"),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), ""),
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), null)
+        );
+    }
+
+    public static Stream<Arguments> testListBiDirectionalContainsIgnoreCaseFalseCaseProvider() {
+        return Stream.of(
+                Arguments.of(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop")
+        );
+    }
+
+    // contains tests
+
+    @ParameterizedTest
+    @MethodSource("testContainsTrueCaseProvider")
+    void testContains_trueCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.contains(sourceString, searchString)).isTrue();
+    }
+
+    @ParameterizedTest
+    @MethodSource("testContainsFalseCaseProvider")
+    void testContains_falseCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.contains(sourceString, searchString)).isFalse();
     }
 
     @Test
@@ -35,24 +178,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.contains((String) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // containsIgnoreCase
+    // containsIgnoreCase tests
 
-    @Test
-    void testContainsIgnoreCase_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.containsIgnoreCase("|Byb|", "Byb")).isTrue(),
-                () -> assertThat(SearchUtils.containsIgnoreCase("|Byb|", "byb")).isTrue(),
-                () -> assertThat(SearchUtils.containsIgnoreCase("Byb", "")).isTrue(),
-                () -> assertThat(SearchUtils.containsIgnoreCase("Byb", null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testContainsIgnoreCaseTrueCaseProvider")
+    void testContainsIgnoreCase_trueCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.containsIgnoreCase(sourceString, searchString)).isTrue();
     }
 
-    @Test
-    void testContainsIgnoreCase_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.containsIgnoreCase("|Byb|", "pop")).isFalse(),
-                () -> assertThat(SearchUtils.containsIgnoreCase("Byb", "|Byb|")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testContainsIgnoreCaseFalseCaseProvider")
+    void testContainsIgnoreCase_falseCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.containsIgnoreCase(sourceString, searchString)).isFalse();
     }
 
     @Test
@@ -60,24 +197,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.containsIgnoreCase((String) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // biDirectionalContains
+    // biDirectionalContains tests
 
-    @Test
-    void testBiDirectionalContains_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.bidirectionalContains("|Byb|", "Byb")).isTrue(),
-                () -> assertThat(SearchUtils.bidirectionalContains("Byb", "|Byb|")).isTrue(),
-                () -> assertThat(SearchUtils.bidirectionalContains("Byb", "")).isTrue(),
-                () -> assertThat(SearchUtils.bidirectionalContains("Byb", null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testBiDirectionalContainsTrueCaseProvider")
+    void testBiDirectionalContains_trueCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.bidirectionalContains(sourceString, searchString)).isTrue();
     }
 
-    @Test
-    void testBiDirectionalContains_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.bidirectionalContains("|Byb|", "pop")).isFalse(),
-                () -> assertThat(SearchUtils.bidirectionalContains("|Byb|", "byb")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testBiDirectionalContainsFalseCaseProvider")
+    void testBiDirectionalContains_falseCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.bidirectionalContains(sourceString, searchString)).isFalse();
     }
 
     @Test
@@ -85,25 +216,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.bidirectionalContains((String) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // biDirectionalContainsIgnoreCase
+    // biDirectionalContainsIgnoreCase tests
 
-    @Test
-    void testBiDirectionalContainsIgnoreCase_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("|Byb|", "Byb")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("Byb", "|Byb|")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("|Byb|", "byb")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("byb", "|Byb|")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("Byb", "")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("Byb", null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testBiDirectionalContainsIgnoreCaseTrueCaseProvider")
+    void testBiDirectionalContainsIgnoreCase_trueCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.biDirectionalContainsIgnoreCase(sourceString, searchString)).isTrue();
     }
 
-    @Test
-    void testBiDirectionalContainsIgnoreCase_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase("|Byb|", "pop")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testBiDirectionalContainsIgnoreCaseFalseCaseProvider")
+    void testBiDirectionalContainsIgnoreCase_falseCase(String sourceString, String searchString) {
+        assertThat(SearchUtils.biDirectionalContainsIgnoreCase(sourceString, searchString)).isFalse();
     }
 
     @Test
@@ -111,24 +235,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.biDirectionalContainsIgnoreCase((String) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // listContains
+    // listContains tests
 
-    @Test
-    void testListContains_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.contains(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp")).isTrue(),
-                () -> assertThat(SearchUtils.contains(List.of("|Byb|", "|Pyp|", "|Bob|"), "")).isTrue(),
-                () -> assertThat(SearchUtils.contains(List.of("|Byb|", "|Pyp|", "|Bob|"), null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testListContainsTrueCaseProvider")
+    void testListContains_trueCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.contains(sourceStrings, searchString)).isTrue();
     }
 
-    @Test
-    void testListContains_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.contains(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop")).isFalse(),
-                () -> assertThat(SearchUtils.contains(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp")).isFalse(),
-                () -> assertThat(SearchUtils.contains(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testListContainsFalseCaseProvider")
+    void testListContains_falseCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.contains(sourceStrings, searchString)).isFalse();
     }
 
     @Test
@@ -136,24 +254,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.contains((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // listContainsIgnoreCase
+    // listContainsIgnoreCase tests
 
-    @Test
-    void testListContainsIgnoreCase_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.containsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp")).isTrue(),
-                () -> assertThat(SearchUtils.containsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp")).isTrue(),
-                () -> assertThat(SearchUtils.containsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "")).isTrue(),
-                () -> assertThat(SearchUtils.containsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testListContainsIgnoreCaseTrueCaseProvider")
+    void testListContainsIgnoreCase_trueCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.containsIgnoreCase(sourceStrings, searchString)).isTrue();
     }
 
-    @Test
-    void testListContainsIgnoreCase_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.containsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop")).isFalse(),
-                () -> assertThat(SearchUtils.containsIgnoreCase(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testListContainsIgnoreCaseFalseCaseProvider")
+    void testListContainsIgnoreCase_falseCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.containsIgnoreCase(sourceStrings, searchString)).isFalse();
     }
 
     @Test
@@ -161,24 +273,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.containsIgnoreCase((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // listBiDirectionalContains
+    // listBiDirectionalContains tests
 
-    @Test
-    void testListBiDirectionalContains_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.bidirectionalContains(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp")).isTrue(),
-                () -> assertThat(SearchUtils.bidirectionalContains(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")).isTrue(),
-                () -> assertThat(SearchUtils.bidirectionalContains(List.of("|Byb|", "|Pyp|", "|Bob|"), "")).isTrue(),
-                () -> assertThat(SearchUtils.bidirectionalContains(List.of("|Byb|", "|Pyp|", "|Bob|"), null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testListBiDirectionalContainsTrueCaseProvider")
+    void testListBiDirectionalContains_trueCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.bidirectionalContains(sourceStrings, searchString)).isTrue();
     }
 
-    @Test
-    void testListBiDirectionalContains_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.bidirectionalContains(List.of("|Byb|", "|Pyp|", "|Bob|"), "pop")).isFalse(),
-                () -> assertThat(SearchUtils.bidirectionalContains(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testListBiDirectionalContainsFalseCaseProvider")
+    void testListBiDirectionalContains_falseCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.bidirectionalContains(sourceStrings, searchString)).isFalse();
     }
 
     @Test
@@ -186,25 +292,18 @@ class SearchUtilsTest {
         assertThatThrownBy(() -> SearchUtils.bidirectionalContains((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
     }
 
-    // listBiDirectionalContainsIgnoreCase
+    // listBiDirectionalContainsIgnoreCase tests
 
-    @Test
-    void testListBiDirectionalContainsIgnoreCase_trueCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "Pyp")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("|Byb|", "Pyp", "|Bob|"), "|Pyp|")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "pyp")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("|Byb|", "pyp", "|Bob|"), "|Pyp|")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), "")).isTrue(),
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("|Byb|", "|Pyp|", "|Bob|"), null)).isTrue()
-        );
+    @ParameterizedTest
+    @MethodSource("testListBiDirectionalContainsIgnoreCaseTrueCaseProvider")
+    void testListBiDirectionalContainsIgnoreCase_trueCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.biDirectionalContainsIgnoreCase(sourceStrings, searchString)).isTrue();
     }
 
-    @Test
-    void testListBiDirectionalContainsIgnoreCase_falseCase() {
-        Assertions.assertAll(
-                () -> assertThat(SearchUtils.biDirectionalContainsIgnoreCase(List.of("Byb", "Pyp", "Bob"), "pop")).isFalse()
-        );
+    @ParameterizedTest
+    @MethodSource("testListBiDirectionalContainsIgnoreCaseFalseCaseProvider")
+    void testListBiDirectionalContainsIgnoreCase_falseCase(List<String> sourceStrings, String searchString) {
+        assertThat(SearchUtils.biDirectionalContainsIgnoreCase(sourceStrings, searchString)).isFalse();
     }
 
     @Test
