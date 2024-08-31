@@ -9,8 +9,4 @@ public final class StringUtils {
         return string == null ? "" : string;
     }
 
-    public static String ifBlankThenNull(String string) {
-        return string == null || string.isBlank() ? null : string;
-    }
-
 }
