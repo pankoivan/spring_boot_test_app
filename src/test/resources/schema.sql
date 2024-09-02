@@ -42,6 +42,6 @@ CREATE TABLE IF NOT EXISTS product_tag
 	id SERIAL PRIMARY KEY,
 	product_id INT REFERENCES product (id) NOT NULL,
 	tag_id INT REFERENCES tag (id) NOT NULL,
-	
+
 	CONSTRAINT product_tag__many_to_many_unique UNIQUE (product_id, tag_id)
 );
