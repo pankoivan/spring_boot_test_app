@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS app_user
+(
+	id SERIAL PRIMARY KEY,
+	username VARCHAR (255) UNIQUE NOT NULL,
+	password VARCHAR (64) NOT NULL,
+	role VARCHAR (16) NOT NULL,
+	creation_date TIMESTAMP NOT NULL,
+	editing_date TIMESTAMP
+);

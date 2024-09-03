@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -16,6 +17,10 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@Sql(
+        scripts = "classpath:sql/tables/app_user.sql",
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS
+)
 class AppUserRepositoryTest {
 
     static AppUser appUser(String username, Integer creationYear) {
