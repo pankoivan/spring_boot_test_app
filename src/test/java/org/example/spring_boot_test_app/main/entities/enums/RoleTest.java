@@ -9,7 +9,7 @@ class RoleTest {
 
     @ParameterizedTest
     @EnumSource(Role.class)
-    void getAuthority(Role role) {
+    void testGetAuthority_authorityNameWithCorrectPrefix(Role role) {
         assertThat(role.getAuthority()).isEqualTo("ROLE_" + role.name());
     }
 
