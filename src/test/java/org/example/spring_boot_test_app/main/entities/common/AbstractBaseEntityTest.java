@@ -16,18 +16,14 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 class AbstractBaseEntityTest {
 
     static Comment commentWithId(Integer id) {
-        Comment comment = new Comment();
-        comment.setId(id);
-        return comment;
+        return Comment.builder().id(id).build();
     }
 
     static Product productWithId(Integer id) {
-        Product product = new Product();
-        product.setId(id);
-        return product;
+        return Product.builder().id(id).build();
     }
 
-    static Stream<Arguments> testEqualsTrueCase() {
+    static Stream<Arguments> testEqualsTrueCaseProvider() {
         Comment comment1 = commentWithId(null);
         Comment comment2 = commentWithId(123);
         return Stream.of(
@@ -37,7 +33,7 @@ class AbstractBaseEntityTest {
         );
     }
 
-    static Stream<Arguments> testEqualsFalseCase() {
+    static Stream<Arguments> testEqualsFalseCaseProvider() {
         Comment comment1 = commentWithId(null);
         Comment comment2 = commentWithId(123);
         Comment comment3 = commentWithId(456);
@@ -48,7 +44,8 @@ class AbstractBaseEntityTest {
                 Arguments.of(comment2, comment3),
                 Arguments.of(comment1, product1),
                 Arguments.of(comment1, product2),
-                Arguments.of(comment2, product1)
+                Arguments.of(comment2, product1),
+                Arguments.of(comment2, product2)
         );
     }
 
@@ -80,19 +77,19 @@ class AbstractBaseEntityTest {
     }
 
     @ParameterizedTest
-    @MethodSource("testEqualsTrueCase")
+    @MethodSource("testEqualsTrueCaseProvider")
     void testEquals_trueCase(AbstractBaseEntity entity1, AbstractBaseEntity entity2) {
         assertThat(entity1.equals(entity2)).isTrue();
     }
 
     @ParameterizedTest
-    @MethodSource("testEqualsFalseCase")
+    @MethodSource("testEqualsFalseCaseProvider")
     void testEquals_falseCase(AbstractBaseEntity entity1, AbstractBaseEntity entity2) {
         assertThat(entity1.equals(entity2)).isFalse();
     }
 
     @Test
-    void testHashCode_successCase() {
+    void testHashCode_correctHashCode() {
         assertThat(new Product().hashCode()).isEqualTo(Product.class.hashCode());
     }
 
