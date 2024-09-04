@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.example.spring_boot_test_app.main.dto.in.comment.CommentAddingDto;
 import org.example.spring_boot_test_app.main.dto.in.comment.CommentEditingDto;
 import org.example.spring_boot_test_app.main.entities.Comment;
-import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
+import org.example.spring_boot_test_app.main.exceptions.EntityNotFoundException;
 import org.example.spring_boot_test_app.main.repository.CommentRepository;
 import org.example.spring_boot_test_app.main.services.access.implementations.CommentAccessService;
 import org.example.spring_boot_test_app.main.services.auxiliary.interfaces.CurrentUserService;
@@ -35,7 +35,7 @@ public class CommentService implements BaseService<Comment, CommentAddingDto, Co
 
     @Override
     public Comment findById(Integer id) {
-        Comment comment = repository.findById(id).orElseThrow(() -> new EntityNoFoundException("Комментарий с id \"%s\" не найден"));
+        Comment comment = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Комментарий с id \"%s\" не найден"));
         accessService.shouldRead(comment);
         return comment;
     }

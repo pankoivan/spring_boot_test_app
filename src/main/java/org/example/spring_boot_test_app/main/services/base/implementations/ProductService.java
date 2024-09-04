@@ -6,7 +6,7 @@ import org.example.spring_boot_test_app.main.dto.in.product.ProductAddingDto;
 import org.example.spring_boot_test_app.main.dto.in.product.ProductEditingDto;
 import org.example.spring_boot_test_app.main.entities.Product;
 import org.example.spring_boot_test_app.main.entities.Tag;
-import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
+import org.example.spring_boot_test_app.main.exceptions.EntityNotFoundException;
 import org.example.spring_boot_test_app.main.repository.ProductRepository;
 import org.example.spring_boot_test_app.main.services.access.implementations.ProductAccessService;
 import org.example.spring_boot_test_app.main.services.auxiliary.interfaces.CurrentUserService;
@@ -37,7 +37,7 @@ public class ProductService implements BaseService<Product, ProductAddingDto, Pr
 
     @Override
     public Product findById(Integer id) {
-        Product product = repository.findById(id).orElseThrow(() -> new EntityNoFoundException("Товар с id \"%s\" не найден"));
+        Product product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Товар с id \"%s\" не найден"));
         accessService.shouldRead(product);
         return product;
     }

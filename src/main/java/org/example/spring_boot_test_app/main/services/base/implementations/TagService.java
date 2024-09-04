@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.example.spring_boot_test_app.main.dto.in.tag.TagAddingDto;
 import org.example.spring_boot_test_app.main.dto.in.tag.TagEditingDto;
 import org.example.spring_boot_test_app.main.entities.Tag;
-import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
+import org.example.spring_boot_test_app.main.exceptions.EntityNotFoundException;
 import org.example.spring_boot_test_app.main.repository.TagRepository;
 import org.example.spring_boot_test_app.main.services.access.implementations.TagAccessService;
 import org.example.spring_boot_test_app.main.services.auxiliary.interfaces.CurrentUserService;
@@ -33,7 +33,7 @@ public class TagService implements BaseService<Tag, TagAddingDto, TagEditingDto>
 
     @Override
     public Tag findById(Integer id) {
-        Tag tag = repository.findById(id).orElseThrow(() -> new EntityNoFoundException("Тег с id \"%s\" не найден"));
+        Tag tag = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Тег с id \"%s\" не найден"));
         accessService.shouldRead(tag);
         return tag;
     }

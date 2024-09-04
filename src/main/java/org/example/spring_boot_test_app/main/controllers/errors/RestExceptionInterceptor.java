@@ -3,7 +3,7 @@ package org.example.spring_boot_test_app.main.controllers.errors;
 import org.example.spring_boot_test_app.main.controllers.errors.entities.FieldsValidationExceptionResponseEntity;
 import org.example.spring_boot_test_app.main.controllers.errors.entities.NoFieldsValidationExceptionResponseEntity;
 import org.example.spring_boot_test_app.main.exceptions.AccessRightsException;
-import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
+import org.example.spring_boot_test_app.main.exceptions.EntityNotFoundException;
 import org.example.spring_boot_test_app.main.exceptions.FieldsValidationException;
 import org.example.spring_boot_test_app.main.exceptions.UrlValidationException;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,7 @@ public class RestExceptionInterceptor {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
-            EntityNoFoundException.class,
+            EntityNotFoundException.class,
             NoHandlerFoundException.class,
             NoResourceFoundException.class,
             HttpClientErrorException.NotFound.class,

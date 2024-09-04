@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.example.spring_boot_test_app.main.dto.in.app_user.AppUserAddingDto;
 import org.example.spring_boot_test_app.main.dto.in.app_user.AppUserEditingDto;
 import org.example.spring_boot_test_app.main.entities.AppUser;
-import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
+import org.example.spring_boot_test_app.main.exceptions.EntityNotFoundException;
 import org.example.spring_boot_test_app.main.repository.AppUserRepository;
 import org.example.spring_boot_test_app.main.services.access.implementations.AppUserAccessService;
 import org.example.spring_boot_test_app.main.services.base.interfaces.common.BaseService;
@@ -33,7 +33,7 @@ public class AppUserService implements BaseService<AppUser, AppUserAddingDto, Ap
 
     @Override
     public AppUser findById(Integer id) {
-        AppUser appUser = repository.findById(id).orElseThrow(() -> new EntityNoFoundException("Пользователь с id \"%s\" не найден"));
+        AppUser appUser = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Пользователь с id \"%s\" не найден"));
         accessService.shouldRead(appUser);
         return appUser;
     }

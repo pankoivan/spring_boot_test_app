@@ -6,7 +6,7 @@ import org.example.spring_boot_test_app.main.entities.AppUser;
 import org.example.spring_boot_test_app.main.entities.Comment;
 import org.example.spring_boot_test_app.main.entities.Product;
 import org.example.spring_boot_test_app.main.entities.Tag;
-import org.example.spring_boot_test_app.main.exceptions.EntityNoFoundException;
+import org.example.spring_boot_test_app.main.exceptions.EntityNotFoundException;
 import org.example.spring_boot_test_app.main.exceptions.FieldsValidationException;
 import org.example.spring_boot_test_app.main.exceptions.InputValidationException;
 import org.example.spring_boot_test_app.main.repository.AppUserRepository;
@@ -122,9 +122,9 @@ class AppUserValidationServiceTest {
 
     @Test
     void testEditingValidation_throwsWhenNotFoundCase() {
-        doThrow(EntityNoFoundException.class).when(service).findById(1);
+        doThrow(EntityNotFoundException.class).when(service).findById(1);
         assertThatThrownBy(() -> validationService.editingValidation(appUserEditingDto(1, "test@mail"), emptyErrors()))
-                .isInstanceOf(EntityNoFoundException.class);
+                .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
