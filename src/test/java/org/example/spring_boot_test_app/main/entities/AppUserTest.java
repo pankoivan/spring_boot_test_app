@@ -13,7 +13,7 @@ class AppUserTest {
 
     @ParameterizedTest
     @EnumSource(Role.class)
-    void testGetAuthorities_successCase(Role role) {
+    void testGetAuthorities_equalsToSingletonListOfRole(Role role) {
         AppUser appUser = new AppUser();
         appUser.setRole(role);
         assertThat(appUser.getAuthorities()).isEqualTo(Collections.singletonList(role));
