@@ -20,7 +20,9 @@ class UrlUtilsTest {
     @NullAndEmptySource
     @ValueSource(strings = {"not a number", "-142857", "0"})
     void testParsePathId_throwsCase(String pathId) {
-        assertThatThrownBy(() -> UrlUtils.parsePathId(pathId)).isInstanceOf(UrlValidationException.class);
+        assertThatThrownBy(() -> UrlUtils.parsePathId(pathId))
+                .isInstanceOf(UrlValidationException.class)
+                .hasMessage("Некорректный id: \"%s\"".formatted(pathId));
     }
 
 }
