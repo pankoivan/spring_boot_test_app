@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 class AbstractBaseEntityTest {
 
@@ -68,7 +68,7 @@ class AbstractBaseEntityTest {
 
     @Test
     void testGetFormattedCreationDate_throwsCase() {
-        assertThatThrownBy(() -> new Product().getFormattedCreationDate()).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> new Product().getFormattedCreationDate());
     }
 
     @ParameterizedTest

@@ -6,7 +6,7 @@ import org.example.spring_boot_test_app.main.entities.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 class CommentSearchFilterTest {
 
@@ -31,7 +31,7 @@ class CommentSearchFilterTest {
 
     @Test
     void testMatches_throwsCase() {
-        assertThatThrownBy(() -> filter.matches(null, "AnyString")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> filter.matches(null, "AnyString"));
     }
 
 }

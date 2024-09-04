@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 class SearchUtilsTest {
 
@@ -175,7 +175,7 @@ class SearchUtilsTest {
 
     @Test
     void testContains_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.contains((String) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.contains((String) null, "Byb"));
     }
 
     // containsIgnoreCase tests
@@ -194,7 +194,7 @@ class SearchUtilsTest {
 
     @Test
     void testContainsIgnoreCase_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.containsIgnoreCase((String) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.containsIgnoreCase((String) null, "Byb"));
     }
 
     // biDirectionalContains tests
@@ -213,7 +213,7 @@ class SearchUtilsTest {
 
     @Test
     void testBiDirectionalContains_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.bidirectionalContains((String) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.bidirectionalContains((String) null, "Byb"));
     }
 
     // biDirectionalContainsIgnoreCase tests
@@ -232,7 +232,7 @@ class SearchUtilsTest {
 
     @Test
     void testBiDirectionalContainsIgnoreCase_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.biDirectionalContainsIgnoreCase((String) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.biDirectionalContainsIgnoreCase((String) null, "Byb"));
     }
 
     // listContains tests
@@ -251,7 +251,7 @@ class SearchUtilsTest {
 
     @Test
     void testListContains_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.contains((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.contains((List<String>) null, "Byb"));
     }
 
     // listContainsIgnoreCase tests
@@ -270,7 +270,7 @@ class SearchUtilsTest {
 
     @Test
     void testListContainsIgnoreCase_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.containsIgnoreCase((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.containsIgnoreCase((List<String>) null, "Byb"));
     }
 
     // listBiDirectionalContains tests
@@ -289,7 +289,7 @@ class SearchUtilsTest {
 
     @Test
     void testListBiDirectionalContains_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.bidirectionalContains((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.bidirectionalContains((List<String>) null, "Byb"));
     }
 
     // listBiDirectionalContainsIgnoreCase tests
@@ -308,7 +308,7 @@ class SearchUtilsTest {
 
     @Test
     void testListBiDirectionalContainsIgnoreCase_throwsCase() {
-        assertThatThrownBy(() -> SearchUtils.biDirectionalContainsIgnoreCase((List<String>) null, "Byb")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> SearchUtils.biDirectionalContainsIgnoreCase((List<String>) null, "Byb"));
     }
 
 }

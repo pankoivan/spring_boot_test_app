@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +47,7 @@ class AppUserSearchFilterTest {
 
     @Test
     void testMatches_throwsCase() {
-        assertThatThrownBy(() -> filter.matches(null, "AnyString")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> filter.matches(null, "AnyString"));
     }
 
     @Test
@@ -73,7 +73,7 @@ class AppUserSearchFilterTest {
 
     @Test
     void testSearched_throwsCase() {
-        assertThatThrownBy(() -> filter.searched(null, "AnyString")).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> filter.searched(null, "AnyString"));
     }
 
 }

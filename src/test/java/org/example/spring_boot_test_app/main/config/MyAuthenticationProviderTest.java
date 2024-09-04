@@ -17,8 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -84,7 +83,7 @@ class MyAuthenticationProviderTest {
 
     @Test
     void testSupports_throwsCase() {
-        assertThatThrownBy(() -> provider.supports(null)).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> provider.supports(null));
     }
 
 }

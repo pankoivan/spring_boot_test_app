@@ -10,8 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class CurrentUserServiceImplTest {
 
@@ -53,7 +52,7 @@ class CurrentUserServiceImplTest {
 
     @Test
     void testAppUser_throwsWhenNullCase() {
-        assertThatThrownBy(service::appUser).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(service::appUser);
     }
 
     @Test

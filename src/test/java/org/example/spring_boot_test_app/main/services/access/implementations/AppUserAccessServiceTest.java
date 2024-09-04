@@ -16,8 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -66,7 +65,7 @@ class AppUserAccessServiceTest {
 
     @Test
     void testAvailableOnly_throwsCase() {
-        assertThatThrownBy(() -> accessService.availableOnly(null)).isInstanceOf(NullPointerException.class);
+        assertThatNullPointerException().isThrownBy(() -> accessService.availableOnly(null));
     }
 
     @Test
