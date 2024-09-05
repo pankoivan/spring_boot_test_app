@@ -1,6 +1,5 @@
 package org.example.spring_boot_test_app.main.filters.implementations;
 
-import org.example.spring_boot_test_app.main.entities.AppUser;
 import org.example.spring_boot_test_app.main.entities.Product;
 import org.junit.jupiter.api.Test;
 
@@ -13,19 +12,18 @@ class ProductSearchFilterTest {
             .builder()
             .name("ProductName")
             .description("ProductDescription")
-            .author(AppUser.builder().username("author@mail").build())
             .build();
 
     private final ProductSearchFilter filter = new ProductSearchFilter();
 
     @Test
     void testMatches_nameTrueCase() {
-        assertThat(filter.matches(product, "name")).isTrue();
+        assertThat(filter.matches(product, "|productname|")).isTrue();
     }
 
     @Test
     void testMatches_descriptionTrueCase() {
-        assertThat(filter.matches(product, "description")).isTrue();
+        assertThat(filter.matches(product, "|productdescription|")).isTrue();
     }
 
     @Test

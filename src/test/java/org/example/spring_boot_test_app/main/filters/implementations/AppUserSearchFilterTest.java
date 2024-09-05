@@ -1,7 +1,6 @@
 package org.example.spring_boot_test_app.main.filters.implementations;
 
 import org.example.spring_boot_test_app.main.entities.AppUser;
-import org.example.spring_boot_test_app.main.entities.enums.Role;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
@@ -19,17 +18,17 @@ class AppUserSearchFilterTest {
 
     private final AppUser appUser1 = AppUser
             .builder()
-            .username("testMail@mail").password("123").role(Role.ADMIN)
+            .username("testMail@mail")
             .build();
 
     private final AppUser appUser2 = AppUser
             .builder()
-            .username("oneMoreTestMail@mail").password("456").role(Role.USER)
+            .username("oneMoreTestMail@mail")
             .build();
 
     private final AppUser appUser3 = AppUser
             .builder()
-            .username("someMail@yandex").password("789").role(Role.ADMIN)
+            .username("someMail@yandex")
             .build();
 
     @Spy
@@ -37,7 +36,7 @@ class AppUserSearchFilterTest {
 
     @Test
     void testMatches_trueCase() {
-        assertThat(filter.matches(appUser1, "test")).isTrue();
+        assertThat(filter.matches(appUser1, "|testmail@mail|")).isTrue();
     }
 
     @Test
@@ -57,10 +56,10 @@ class AppUserSearchFilterTest {
 
     @Test
     void testSearched_notFoundSuccessCase() {
-        doReturn(false).when(filter).matches(appUser1, "abc");
-        doReturn(false).when(filter).matches(appUser2, "abc");
-        doReturn(false).when(filter).matches(appUser3, "abc");
-        assertThat(filter.searched(List.of(appUser1, appUser2, appUser3), "abc")).isEqualTo(new LinkedHashSet<>());
+        doReturn(false).when(filter).matches(appUser1, "test");
+        doReturn(false).when(filter).matches(appUser2, "test");
+        doReturn(false).when(filter).matches(appUser3, "test");
+        assertThat(filter.searched(List.of(appUser1, appUser2, appUser3), "test")).isEqualTo(new LinkedHashSet<>());
     }
 
     @Test

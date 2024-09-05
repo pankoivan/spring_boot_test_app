@@ -1,8 +1,6 @@
 package org.example.spring_boot_test_app.main.filters.implementations;
 
-import org.example.spring_boot_test_app.main.entities.AppUser;
 import org.example.spring_boot_test_app.main.entities.Comment;
-import org.example.spring_boot_test_app.main.entities.Product;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,15 +11,13 @@ class CommentSearchFilterTest {
     private final Comment comment = Comment
             .builder()
             .text("CommentText")
-            .product(Product.builder().name("ProductName").build())
-            .author(AppUser.builder().username("author@mail").build())
             .build();
 
     private final CommentSearchFilter filter = new CommentSearchFilter();
 
     @Test
     void testMatches_trueCase() {
-        assertThat(filter.matches(comment, "text")).isTrue();
+        assertThat(filter.matches(comment, "|commenttext|")).isTrue();
     }
 
     @Test

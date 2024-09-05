@@ -1,6 +1,5 @@
 package org.example.spring_boot_test_app.main.filters.implementations;
 
-import org.example.spring_boot_test_app.main.entities.AppUser;
 import org.example.spring_boot_test_app.main.entities.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -12,19 +11,18 @@ class TagSearchFilterTest {
     private final Tag tag = Tag
             .builder()
             .name("TagName")
-            .author(AppUser.builder().username("author@mail").build())
             .build();
 
     private final TagSearchFilter filter = new TagSearchFilter();
 
     @Test
     void testMatches_trueCase() {
-        assertThat(filter.matches(tag, "name")).isTrue();
+        assertThat(filter.matches(tag, "|tagname|")).isTrue();
     }
 
     @Test
     void testMatches_falseCase() {
-        assertThat(filter.matches(tag, "nane")).isFalse();
+        assertThat(filter.matches(tag, "test")).isFalse();
     }
 
     @Test
