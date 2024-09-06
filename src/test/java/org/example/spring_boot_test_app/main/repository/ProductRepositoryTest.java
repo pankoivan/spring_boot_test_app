@@ -28,10 +28,9 @@ class ProductRepositoryTest {
     static Product product(String name, String description, Integer creationYear) {
         return Product
                 .builder()
-                .name(name == null ? "ProductName" : name)
-                .description(description == null ? "ProductDescription" : description)
-                .author(null)
-                .creationDate(LocalDateTime.of(creationYear == null ? 2005 : creationYear, 2, 24, 12, 51, 3))
+                .name(name)
+                .description(description)
+                .creationDate(LocalDateTime.of(creationYear, 2, 24, 12, 51, 3))
                 .build();
     }
 
@@ -43,8 +42,7 @@ class ProductRepositoryTest {
 
     @Test
     void testExistsByName_trueCase() {
-        Product product = product(null, null, null);
-        testEntityManager.persist(product);
+        testEntityManager.persist(product("ProductName", "ProductDescription", 2005));
         assertThat(repository.existsByName("ProductName")).isTrue();
     }
 
@@ -55,8 +53,7 @@ class ProductRepositoryTest {
 
     @Test
     void testExistsByDescription_trueCase() {
-        Product product = product(null, null, null);
-        testEntityManager.persist(product);
+        testEntityManager.persist(product("ProductName", "ProductDescription", 2005));
         assertThat(repository.existsByDescription("ProductDescription")).isTrue();
     }
 

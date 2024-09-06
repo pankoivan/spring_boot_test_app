@@ -30,8 +30,6 @@ class CommentRepositoryTest {
         return Comment
                 .builder()
                 .text("CommentText")
-                .product(null)
-                .author(null)
                 .creationDate(LocalDateTime.of(creationYear, 2, 24, 12, 51, 3))
                 .build();
     }

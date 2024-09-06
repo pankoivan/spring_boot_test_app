@@ -26,8 +26,8 @@ class AppUserRepositoryTest {
     static AppUser appUser(String username, Integer creationYear) {
         return AppUser
                 .builder()
-                .username(username == null ? "someMail@yandex" : username).password("789").role(Role.ADMIN)
-                .creationDate(LocalDateTime.of(creationYear == null ? 2005 : creationYear, 2, 24, 12, 51, 3))
+                .username(username).password("789").role(Role.ADMIN)
+                .creationDate(LocalDateTime.of(creationYear, 2, 24, 12, 51, 3))
                 .build();
     }
 
@@ -41,14 +41,14 @@ class AppUserRepositoryTest {
 
     @Test
     void testSave_successCase() {
-        AppUser appUser = appUser(null, null);
+        AppUser appUser = appUser("someMail@yandex", 2005);
         appUser = repository.save(appUser);
         assertThat(testEntityManager.find(AppUser.class, appUser.getId())).isEqualTo(appUser);
     }
 
     @Test
     void testFindById_foundSuccessCase() {
-        AppUser appUser = appUser(null, null);
+        AppUser appUser = appUser("someMail@yandex", 2005);
         appUser = testEntityManager.persist(appUser);
         assertThat(repository.findById(appUser.getId())).isPresent().get().isEqualTo(appUser);
     }
@@ -60,7 +60,7 @@ class AppUserRepositoryTest {
 
     @Test
     void testUpdate_successCase() {
-        AppUser appUser = appUser(null, null);
+        AppUser appUser = appUser("someMail@yandex", 2005);
         appUser = testEntityManager.persist(appUser);
         appUser.setUsername("newUsername@mail");
         repository.save(appUser);
@@ -69,7 +69,7 @@ class AppUserRepositoryTest {
 
     @Test
     void testDeleteById_successCase() {
-        AppUser appUser = appUser(null, null);
+        AppUser appUser = appUser("someMail@yandex", 2005);
         appUser = testEntityManager.persist(appUser);
         repository.deleteById(appUser.getId());
         assertThat(testEntityManager.find(AppUser.class, appUser.getId())).isNull();
@@ -79,7 +79,7 @@ class AppUserRepositoryTest {
 
     @Test
     void testFindByUsername_foundSuccessCase() {
-        AppUser appUser = appUser(null, null);
+        AppUser appUser = appUser("someMail@yandex", 2005);
         appUser = testEntityManager.persist(appUser);
         assertThat(repository.findByUsername("someMail@yandex")).isPresent().get().isEqualTo(appUser);
     }
@@ -91,8 +91,7 @@ class AppUserRepositoryTest {
 
     @Test
     void testExistsByUsername_trueCase() {
-        AppUser appUser = appUser(null, null);
-        testEntityManager.persist(appUser);
+        testEntityManager.persist(appUser("someMail@yandex", 2005));
         assertThat(repository.existsByUsername("someMail@yandex")).isTrue();
     }
 

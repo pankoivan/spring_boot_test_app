@@ -28,9 +28,8 @@ class TagRepositoryTest {
     static Tag tag(String name, Integer creationYear) {
         return Tag
                 .builder()
-                .name(name == null ? "TagName" : name)
-                .author(null)
-                .creationDate(LocalDateTime.of(creationYear == null ? 2005 : creationYear, 2, 24, 12, 51, 3))
+                .name(name)
+                .creationDate(LocalDateTime.of(creationYear, 2, 24, 12, 51, 3))
                 .build();
     }
 
@@ -42,8 +41,7 @@ class TagRepositoryTest {
 
     @Test
     void testExistsByName_trueCase() {
-        Tag tag = tag(null, null);
-        testEntityManager.persist(tag);
+        testEntityManager.persist(tag("TagName", 2005));
         assertThat(repository.existsByName("TagName")).isTrue();
     }
 
