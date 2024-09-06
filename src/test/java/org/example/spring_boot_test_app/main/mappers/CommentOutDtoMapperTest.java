@@ -33,7 +33,7 @@ class CommentOutDtoMapperTest {
 
     @Test
     void testMap_nullSuccessCase() {
-        assertThat(mapper.map((Comment) null)).isEqualTo(null);
+        assertThat(mapper.map((Comment) null)).isNull();
     }
 
 }

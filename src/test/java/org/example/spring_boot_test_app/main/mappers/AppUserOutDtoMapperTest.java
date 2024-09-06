@@ -57,7 +57,7 @@ class AppUserOutDtoMapperTest {
 
     @Test
     void testMap_nullSuccessCase() {
-        assertThat(mapper.map((AppUser) null)).isEqualTo(null);
+        assertThat(mapper.map((AppUser) null)).isNull();
     }
 
     @Test
@@ -75,7 +75,7 @@ class AppUserOutDtoMapperTest {
 
     @Test
     void testMapList_nullSuccessCase() {
-        assertThat(mapper.map((Collection<AppUser>) null)).isEqualTo(null);
+        assertThat(mapper.map((Collection<AppUser>) null)).isNull();
     }
 
 }

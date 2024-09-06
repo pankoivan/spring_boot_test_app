@@ -30,7 +30,7 @@ class TagOutDtoMapperTest {
 
     @Test
     void testMap_nullSuccessCase() {
-        assertThat(mapper.map((Tag) null)).isEqualTo(null);
+        assertThat(mapper.map((Tag) null)).isNull();
     }
 
 }

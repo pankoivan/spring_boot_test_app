@@ -32,7 +32,7 @@ class ProductOutDtoMapperTest {
 
     @Test
     void testMap_nullSuccessCase() {
-        assertThat(mapper.map((Product) null)).isEqualTo(null);
+        assertThat(mapper.map((Product) null)).isNull();
     }
 
 }
