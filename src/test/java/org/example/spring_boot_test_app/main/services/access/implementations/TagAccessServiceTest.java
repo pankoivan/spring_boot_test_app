@@ -15,14 +15,14 @@ import static org.mockito.Mockito.doReturn;
 @ExtendWith(MockitoExtension.class)
 class TagAccessServiceTest {
 
-    static AppUser appUser(int id) {
-        return AppUser.builder().id(id).build();
+    static AppUser appUser() {
+        return AppUser.builder().id(1).build();
     }
 
-    static Tag tag(int id, AppUser author) {
+    static Tag tag(AppUser author) {
         return Tag
                 .builder()
-                .id(id)
+                .id(1)
                 .name("TagName")
                 .author(author)
                 .build();
@@ -37,13 +37,13 @@ class TagAccessServiceTest {
     @Test
     void testCanRead_trueCase() {
         doReturn(false).when(currentUserService).isAnonymous();
-        assertThat(accessService.canRead(tag(1, appUser(1)))).isTrue();
+        assertThat(accessService.canRead(tag(appUser()))).isTrue();
     }
 
     @Test
     void testCanRead_falseCase() {
         doReturn(true).when(currentUserService).isAnonymous();
-        assertThat(accessService.canRead(tag(1, appUser(1)))).isFalse();
+        assertThat(accessService.canRead(tag(appUser()))).isFalse();
     }
 
     @Test
@@ -61,25 +61,25 @@ class TagAccessServiceTest {
     @Test
     void testCanEdit_trueCase() {
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canEdit(tag(1, appUser(1)))).isTrue();
+        assertThat(accessService.canEdit(tag(appUser()))).isTrue();
     }
 
     @Test
     void testCanEdit_falseCase() {
         doReturn(false).when(currentUserService).isAdmin();
-        assertThat(accessService.canEdit(tag(1, appUser(1)))).isFalse();
+        assertThat(accessService.canEdit(tag(appUser()))).isFalse();
     }
 
     @Test
     void testCanDelete_trueCase() {
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canDelete(tag(1, appUser(1)))).isTrue();
+        assertThat(accessService.canDelete(tag(appUser()))).isTrue();
     }
 
     @Test
     void testCanDelete_falseCase() {
         doReturn(false).when(currentUserService).isAdmin();
-        assertThat(accessService.canDelete(tag(1, appUser(1)))).isFalse();
+        assertThat(accessService.canDelete(tag(appUser()))).isFalse();
     }
 
 }

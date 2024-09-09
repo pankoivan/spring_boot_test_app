@@ -15,14 +15,14 @@ import static org.mockito.Mockito.doReturn;
 @ExtendWith(MockitoExtension.class)
 class ProductAccessServiceTest {
 
-    static AppUser appUser(int id) {
-        return AppUser.builder().id(id).build();
+    static AppUser appUser() {
+        return AppUser.builder().id(1).build();
     }
 
-    static Product product(int id, AppUser author) {
+    static Product product(AppUser author) {
         return Product
                 .builder()
-                .id(id)
+                .id(1)
                 .name("ProductName")
                 .description("ProductDescription")
                 .author(author)
@@ -38,13 +38,13 @@ class ProductAccessServiceTest {
     @Test
     void testCanRead_trueCase() {
         doReturn(false).when(currentUserService).isAnonymous();
-        assertThat(accessService.canRead(product(1, appUser(1)))).isTrue();
+        assertThat(accessService.canRead(product(appUser()))).isTrue();
     }
 
     @Test
     void testCanRead_falseCase() {
         doReturn(true).when(currentUserService).isAnonymous();
-        assertThat(accessService.canRead(product(1, appUser(1)))).isFalse();
+        assertThat(accessService.canRead(product(appUser()))).isFalse();
     }
 
     @Test
@@ -62,25 +62,25 @@ class ProductAccessServiceTest {
     @Test
     void testCanEdit_trueCase() {
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canEdit(product(1, appUser(1)))).isTrue();
+        assertThat(accessService.canEdit(product(appUser()))).isTrue();
     }
 
     @Test
     void testCanEdit_falseCase() {
         doReturn(false).when(currentUserService).isAdmin();
-        assertThat(accessService.canEdit(product(1, appUser(1)))).isFalse();
+        assertThat(accessService.canEdit(product(appUser()))).isFalse();
     }
 
     @Test
     void testCanDelete_trueCase() {
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canDelete(product(1, appUser(1)))).isTrue();
+        assertThat(accessService.canDelete(product(appUser()))).isTrue();
     }
 
     @Test
     void testCanDelete_falseCase() {
         doReturn(false).when(currentUserService).isAdmin();
-        assertThat(accessService.canDelete(product(1, appUser(1)))).isFalse();
+        assertThat(accessService.canDelete(product(appUser()))).isFalse();
     }
 
 }

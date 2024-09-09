@@ -2,7 +2,6 @@ package org.example.spring_boot_test_app.main.services.access.implementations;
 
 import org.example.spring_boot_test_app.main.entities.AppUser;
 import org.example.spring_boot_test_app.main.entities.Comment;
-import org.example.spring_boot_test_app.main.entities.enums.Role;
 import org.example.spring_boot_test_app.main.services.auxiliary.implementations.CurrentUserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,10 +19,10 @@ class CommentAccessServiceTest {
         return AppUser.builder().id(id).build();
     }
 
-    static Comment comment(int id, AppUser author) {
+    static Comment comment(AppUser author) {
         return Comment
                 .builder()
-                .id(id)
+                .id(1)
                 .text("CommentText")
                 .author(author)
                 .build();
@@ -38,13 +37,13 @@ class CommentAccessServiceTest {
     @Test
     void testCanRead_trueCase() {
         doReturn(false).when(currentUserService).isAnonymous();
-        assertThat(accessService.canRead(comment(1, appUser(1)))).isTrue();
+        assertThat(accessService.canRead(comment(appUser(1)))).isTrue();
     }
 
     @Test
     void testCanRead_falseCase() {
         doReturn(true).when(currentUserService).isAnonymous();
-        assertThat(accessService.canRead(comment(1, appUser(1)))).isFalse();
+        assertThat(accessService.canRead(comment(appUser(1)))).isFalse();
     }
 
     @Test
@@ -62,7 +61,7 @@ class CommentAccessServiceTest {
     @Test
     void testCanEdit_trueWhenAdminCase() {
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canEdit(comment(1, appUser(1)))).isTrue();
+        assertThat(accessService.canEdit(comment(appUser(1)))).isTrue();
     }
 
     @Test
@@ -70,37 +69,35 @@ class CommentAccessServiceTest {
         AppUser appUser = appUser(1);
         doReturn(false).when(currentUserService).isAdmin();
         doReturn(appUser).when(currentUserService).appUser();
-        assertThat(accessService.canEdit(comment(1, appUser))).isTrue();
+        assertThat(accessService.canEdit(comment(appUser))).isTrue();
     }
 
     @Test
     void testCanEdit_falseCase() {
-        AppUser appUser = appUser(1);
         doReturn(false).when(currentUserService).isAdmin();
-        doReturn(appUser).when(currentUserService).appUser();
-        assertThat(accessService.canEdit(comment(1, appUser(2)))).isFalse();
+        doReturn(appUser(1)).when(currentUserService).appUser();
+        assertThat(accessService.canEdit(comment(appUser(2)))).isFalse();
     }
 
     @Test
-    void testCanDelete_trueCase() {
+    void testCanDelete_trueWhenAdminCase() {
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canDelete(comment(1, appUser(1)))).isTrue();
+        assertThat(accessService.canDelete(comment(appUser(1)))).isTrue();
     }
 
     @Test
-    void testCanDelete_falseWhenNotAdminCase() {
+    void testCanDelete_trueWhenAuthorCase() {
         AppUser appUser = appUser(1);
         doReturn(false).when(currentUserService).isAdmin();
         doReturn(appUser).when(currentUserService).appUser();
-        assertThat(accessService.canDelete(comment(1, appUser))).isTrue();
+        assertThat(accessService.canDelete(comment(appUser))).isTrue();
     }
 
     @Test
-    void testCanDelete_falseWhenSelfCase() {
-        AppUser appUser = appUser(1);
+    void testCanDelete_falseCase() {
         doReturn(false).when(currentUserService).isAdmin();
-        doReturn(appUser).when(currentUserService).appUser();
-        assertThat(accessService.canDelete(comment(1, appUser(2)))).isFalse();
+        doReturn(appUser(1)).when(currentUserService).appUser();
+        assertThat(accessService.canDelete(comment(appUser(2)))).isFalse();
     }
 
 }

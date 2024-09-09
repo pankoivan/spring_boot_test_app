@@ -124,7 +124,7 @@ class AppUserAccessServiceTest {
                 .hasMessage("Недостаточно прав для удаления");
     }
 
-    // specific methods
+    // own methods
 
     @Test
     void testCanRead_trueCase() {
@@ -152,13 +152,12 @@ class AppUserAccessServiceTest {
 
     @Test
     void testCanEdit_trueWhenAdminCase() {
-        AppUser appUser = appUser(1);
         doReturn(true).when(currentUserService).isAdmin();
-        assertThat(accessService.canEdit(appUser)).isTrue();
+        assertThat(accessService.canEdit(appUser(1))).isTrue();
     }
 
     @Test
-    void testCanEdit_trueWhenAuthorCase() {
+    void testCanEdit_trueWhenSelfCase() {
         AppUser appUser = appUser(1);
         doReturn(false).when(currentUserService).isAdmin();
         doReturn(appUser).when(currentUserService).appUser();
@@ -167,18 +166,16 @@ class AppUserAccessServiceTest {
 
     @Test
     void testCanEdit_falseCase() {
-        AppUser appUser = appUser(1);
         doReturn(false).when(currentUserService).isAdmin();
-        doReturn(appUser).when(currentUserService).appUser();
+        doReturn(appUser(1)).when(currentUserService).appUser();
         assertThat(accessService.canEdit(appUser(2))).isFalse();
     }
 
     @Test
     void testCanDelete_trueCase() {
-        AppUser appUser = appUser(1);
         doReturn(true).when(currentUserService).isAdmin();
-        doReturn(appUser(2)).when(currentUserService).appUser();
-        assertThat(accessService.canDelete(appUser)).isTrue();
+        doReturn(appUser(1)).when(currentUserService).appUser();
+        assertThat(accessService.canDelete(appUser(2))).isTrue();
     }
 
     @Test
