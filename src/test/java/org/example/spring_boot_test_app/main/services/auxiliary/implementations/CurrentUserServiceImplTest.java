@@ -74,22 +74,19 @@ class CurrentUserServiceImplTest {
 
     @Test
     void testIsAnonymous_falseCase() {
-        AppUser appUser = appUser(Role.USER);
-        setAuthentication(appUser);
+        setAuthentication(appUser(Role.USER));
         assertThat(service.isAnonymous()).isFalse();
     }
 
     @Test
     void testIsUser_trueCase() {
-        AppUser appUser = appUser(Role.USER);
-        setAuthentication(appUser);
+        setAuthentication(appUser(Role.USER));
         assertThat(service.isUser()).isTrue();
     }
 
     @Test
     void testIsUser_falseWhenAdminCase() {
-        AppUser appUser = appUser(Role.ADMIN);
-        setAuthentication(appUser);
+        setAuthentication(appUser(Role.ADMIN));
         assertThat(service.isUser()).isFalse();
     }
 
@@ -106,15 +103,13 @@ class CurrentUserServiceImplTest {
 
     @Test
     void testIsAdmin_trueCase() {
-        AppUser appUser = appUser(Role.ADMIN);
-        setAuthentication(appUser);
+        setAuthentication(appUser(Role.ADMIN));
         assertThat(service.isAdmin()).isTrue();
     }
 
     @Test
     void testIsAdmin_falseWhenUserCase() {
-        AppUser appUser = appUser(Role.USER);
-        setAuthentication(appUser);
+        setAuthentication(appUser(Role.USER));
         assertThat(service.isAdmin()).isFalse();
     }
 
