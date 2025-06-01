@@ -97,6 +97,7 @@ class AppUserValidationServiceTest {
     @Test
     void testAddingValidation_throwsCase() {
         doReturn(true).when(repository).existsByUsername("test@mail");
+        // сюда лучше подойдёт assertThatThrownBy()
         assertThatCode(() -> validationService.addingValidation(appUserAddingDto(), emptyErrors()))
                 .isInstanceOf(FieldsValidationException.class)
                 .extracting("fieldErrors", ITERABLE)
